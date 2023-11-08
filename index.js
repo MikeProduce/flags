@@ -37,9 +37,9 @@ function htmlGenerator(data) {
                 <img src="${country.flags.svg}" alt="${country.name + ' flag'}">
                 <div class="flags-info">
                     <h2>${country.name}</h2>
-                    <span>Population: ${country.population}</span>
-                    <span>Region: ${country.region}</span>
-                    <span>Capital: ${country.capital}</span>
+                    <span>Population:<p> ${country.population} </p></span>
+                    <span>Region: <p> ${country.region} </p></span>
+                    <span>Capital:<p> ${country.capital} </p></span>
                 </div>
                 </div>`;
         });
