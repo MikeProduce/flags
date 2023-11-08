@@ -92,3 +92,10 @@ img {
     border-radius: 5px;
     box-shadow: 1px 1px 1.5px rgba(0, 0, 0, 0.1);
   }
+ul > li{
+    cursor: pointer;
+}
+  ul > li:hover {
+    padding: 2px;
+    background-color: aquamarine;
+  }

@@ -50,26 +50,32 @@ function htmlGenerator(data) {
 
 
 const selectedRegion = document.getElementById("region");
+
+
 selectedRegion.addEventListener("change", function () {
     const selectedRegions = selectedRegion.value;
     main(selectedRegions);
 });
 
-const querySearch = document.getElementById("country-search");
 
+const querySearch = document.getElementById("country-search");
 querySearch.addEventListener("change", function () {
     const inputText = querySearch.value;
     main(undefined, inputText);
 });
 
+
 querySearch.addEventListener("input", function () {
+    const inputText = querySearch.value;
+
+    // main(undefined, inputText);
+
     clearTimeout(querySearch.timer);
 
+
     querySearch.timer = setTimeout(function () {
-        const inputText = querySearch.value;
-        console.log(typeof inputText);
         recommendationMain(inputText);
-    }, 500);
+    }, 100);
 });
 
 async function main(selectedRegions, inputText) {
@@ -121,7 +127,6 @@ async function recommendationMain(inputText) {
         console.error('An error occurred:', error);
     }
 }
-
 function populateRecommendations(recommendations) {
     const recommendationFlags = document.getElementById("recommendation-flags");
 
@@ -132,7 +137,6 @@ function populateRecommendations(recommendations) {
 
     recommendationFlags.innerHTML = '';
     if (recommendations.length === 0) {
-        console.log('this ran');
         recommendationFlags.style.display = "none";
     } else {
         recommendations.forEach((recommendation) => {
@@ -141,19 +145,13 @@ function populateRecommendations(recommendations) {
         });
     }
 
+    recommendationFlags.addEventListener("click", function (event) {
+        if (event.target.classList.contains("recommended-flag")) {
+            querySearch.value = event.target.textContent;
+            querySearch.dispatchEvent(new Event("change"))
+            recommendationFlags.style.display = "none";
+        }
+    });
 }
-const recommendedFlags = document.getElementsByClassName("recommended-flag");
-
-if (recommendedFlags) {
-    for (const recommendedFlag of recommendedFlags) {
-        recommendedFlag.addEventListener("click", function () {
-            console.log(recommendedFlag.textContent);
-        });
-    }
-}
-
-
-
-
 
 main();
