@@ -115,9 +115,7 @@ async function recommendationMain(inputText) {
             return;
         }
         if (inputText) {
-            const filteredData = data.filter(country =>
-                country.name.toLowerCase().includes(inputText.toLowerCase())
-            );
+            const filteredData = filterCountriesByPartialName(data, inputText);
             populateRecommendations(filteredData);
         } else {
             populateRecommendations([])
@@ -127,6 +125,31 @@ async function recommendationMain(inputText) {
         console.error('An error occurred:', error);
     }
 }
+function filterCountriesByPartialName(data, inputText) {
+    const inputTextLower = inputText.toLowerCase();
+
+    return data.filter(country => {
+        const countryName = country.name.toLowerCase();
+        let tempValue = '';
+        let j = 0;
+
+        for (let i = 0; i < inputTextLower.length && j < countryName.length; i++) {
+            if (inputTextLower[i] === countryName[j]) {
+                tempValue += countryName[j];
+                j++;
+            }
+        }
+
+        // Check if the accumulated letters in tempValue match from the beginning of the country name
+        if (tempValue === inputTextLower) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+}
+
+
 function populateRecommendations(recommendations) {
     const recommendationFlags = document.getElementById("recommendation-flags");
 
