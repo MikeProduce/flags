@@ -192,29 +192,32 @@ main();
 
 // dark mode config
 
-// Function to toggle between light and dark mode
 function toggleDarkMode() {
-    // Toggle the 'dark-mode' class on the body
     document.body.classList.toggle('dark-mode');
     const flagsElements = document.getElementsByClassName('flags');
 
-    // Loop through each element and add the 'dark-mode-elements' class
     for (const element of flagsElements) {
         element.classList.toggle('dark-mode-elements');
     }
-
-    // You can also save the user's preference in local storage
-    // const isDarkMode = document.body.classList.contains('dark-mode');
-    // localStorage.setItem('darkMode', isDarkMode);
+    toggleIcons();
 }
 
-// Check if there's a stored preference for dark mode in local storage
-// const storedDarkMode = localStorage.getItem('darkMode');
+function toggleIcons(){
+    const toggleLight = document.querySelector(".toggle-light-mode");
+    const toggleDark = document.querySelector(".toggle-dark-mode");
 
-// If there's a stored preference, apply it
-// if (storedDarkMode) {
-//     document.body.classList.toggle('dark-mode', storedDarkMode === 'true');
-// }
+    const stylesDark = window.getComputedStyle(toggleDark);
+    const stylesLight = window.getComputedStyle(toggleLight);
+    
+    if (stylesDark.display == "flex") {
+        toggleDark.style.display = "none";
+        toggleLight.style.display = "flex";
+    } else if (stylesLight.display == "flex") {
+        toggleDark.style.display = "flex";
+        toggleLight.style.display = "none";
+    }
+    
+}
 
 // Get a reference to the dark mode toggle button
 const darkModeToggle = document.querySelector('.toggle-light-and-dark');

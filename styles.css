@@ -179,3 +179,19 @@ ul > li{
        background-color: hsl(209, 23%, 22%);
        color: hsl(0, 0%, 100%);
     }
+
+    .toggle-light-mode{
+        display: none;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .toggle-dark-mode{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hidden {
+        display: none;
+    }
