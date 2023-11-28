@@ -47,12 +47,18 @@ function renderCountries(countries) {
 
 function createCountryDiv(country) {
     const countryDiv = document.createElement('div');
-    countryDiv.className = 'flags';
+    if (document.body.classList.value == "dark-mode"){
+        countryDiv.className = 'flags dark-mode-elements';
+
+    } else {
+        countryDiv.className = "flags"
+    }
+    const formattedPopulation = country.population.toLocaleString();
     countryDiv.innerHTML = `
     <img src="${country.flags.svg}" alt="${country.name + ' flag'}">
     <div class="flags-info">
         <h2>${country.name}</h2>
-        <span>Population:<p> ${country.population} </p></span>
+        <span>Population:<p> ${formattedPopulation} </p></span>
         <span>Region: <p> ${country.region} </p></span>
         <span>Capital:<p> ${country.capital} </p></span>
     </div>
@@ -195,10 +201,16 @@ main();
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
     const flagsElements = document.getElementsByClassName('flags');
+    const countrySearchBar = document.getElementById("country-search").classList.toggle("dark-mode-search")
+    const regionSelector = document.getElementById("region").classList.toggle("dark-mode-search")
+    const navigationBar = document.getElementsByClassName("navigation-bar")
+    navigationBar[0].classList.toggle("dark-nav-bar");
+    
+        for (const element of flagsElements) {
+            element.classList.toggle('dark-mode-elements');
 
-    for (const element of flagsElements) {
-        element.classList.toggle('dark-mode-elements');
     }
+
     toggleIcons();
 }
 
