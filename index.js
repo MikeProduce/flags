@@ -47,24 +47,31 @@ function renderCountries(countries) {
 
 function createCountryDiv(country) {
     const countryDiv = document.createElement('div');
-    if (document.body.classList.value == "dark-mode"){
-        countryDiv.className = 'flags dark-mode-elements';
+    countryDiv.addEventListener('click', function () {
+        const url = new URL(window.location.href);
+        url.searchParams.set('selectedCountry', country.name);
+        history.pushState({}, '', url);
 
+        displaySelectedCountryFlag();
+    });
+    if (document.body.classList.value == "dark-mode") {
+        countryDiv.className = 'flags dark-mode-elements';
     } else {
-        countryDiv.className = "flags"
+        countryDiv.className = "flags";
     }
     const formattedPopulation = country.population.toLocaleString();
     countryDiv.innerHTML = `
-    <img src="${country.flags.svg}" alt="${country.name + ' flag'}">
-    <div class="flags-info">
-        <h2>${country.name}</h2>
-        <span>Population:<p> ${formattedPopulation} </p></span>
-        <span>Region: <p> ${country.region} </p></span>
-        <span>Capital:<p> ${country.capital} </p></span>
-    </div>
-`;
+        <img src="${country.flags.svg}" alt="${country.name + ' flag'}">
+        <div class="flags-info">
+            <h2>${country.name}</h2>
+            <span>Population:<p> ${formattedPopulation} </p></span>
+            <span>Region: <p> ${country.region} </p></span>
+            <span>Capital:<p> ${country.capital} </p></span>
+        </div>
+    `;
     return countryDiv;
 }
+
 
 selectedRegion.addEventListener("change", function () {
     const selectedRegionValue = selectedRegion.value;
@@ -205,6 +212,8 @@ function toggleDarkMode() {
     const regionSelector = document.getElementById("region").classList.toggle("dark-mode-search")
     const navigationBar = document.getElementsByClassName("navigation-bar")
     navigationBar[0].classList.toggle("dark-nav-bar");
+    const magIcon = document.getElementsByClassName("search-icon")
+    magIcon[0].classList.toggle("search-icon-dark")
     
         for (const element of flagsElements) {
             element.classList.toggle('dark-mode-elements');
@@ -231,9 +240,7 @@ function toggleIcons(){
     
 }
 
-// Get a reference to the dark mode toggle button
-const darkModeToggle = document.querySelector('.toggle-light-and-dark');
 
-// Attach a click event listener to the toggle button
+const darkModeToggle = document.querySelector('.toggle-light-and-dark');
 darkModeToggle.addEventListener('click', toggleDarkMode);
 

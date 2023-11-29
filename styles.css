@@ -62,6 +62,7 @@ span p{
 #country-search{
     width: 400px;
     padding: 15px;
+    padding-left: 50px;
     border: 1px solid #e5e5e5;
     border-radius: 5px;
     box-shadow: 1px 1px 1.5px rgba(0, 0, 0, 0.1);
@@ -71,6 +72,7 @@ span p{
     #country-search{
         width: 250px;
         padding: 15px;
+        padding-left: 50px;
         border: 1px solid #e5e5e5;
         border-radius: 5px;
         box-shadow: 1px 1px 1.5px rgba(0, 0, 0, 0.1);
@@ -160,7 +162,7 @@ ul > li{
   span{
     display: flex;
     font-family: 'Nunito Sans', sans-serif;
-    font-weight: 600;
+    font-weight: 300;
     margin-top: 2px;
 
   }
@@ -171,8 +173,25 @@ ul > li{
     font-weight: 300;
   }
 
+  .search-container {
+    position: relative;
+    display: inline-block;
+}
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-65%);
+    fill: #000000; 
+    cursor: pointer;
+}
+
 
   /* DARK MODE */
+
+  .search-icon-dark {
+    fill:white; 
+}
 
   .dark-nav-bar{
     background-color: hsl(209, 23%, 22%);
@@ -222,4 +241,27 @@ ul > li{
 
     .dark-light-margin{
         margin-left: 10px;
+    }
+
+
+
+    /* countrys page section */
+    .country-description{
+    padding:18px 40px 18px 40px;
+
+    }
+
+    .back-to-home-page-button {
+        padding: 8px 25px 8px 25px;
+        display: flex;
+        fill: white;
+        border: none;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+        border-radius: 5px; 
+    }
+    
+
+    .back-icon{
+        margin-right: 10px;
+        fill: black;
     }
