@@ -45,20 +45,27 @@ function renderCountries(countries) {
     mainContent.appendChild(fragment);
 }
 
-function createCountryDiv(country) {
+function createCountryDiv(country, mode) {
     const countryDiv = document.createElement('div');
-    countryDiv.addEventListener('click', function () {
-        const url = new URL(window.location.href);
-        url.searchParams.set('selectedCountry', country.name);
-        history.pushState({}, '', url);
+    addClickListener(countryDiv, country);
+    setClassNameBasedOnMode(countryDiv, mode);
+    populateCountryData(countryDiv, country);
+    return countryDiv;
+}
 
-        displaySelectedCountryFlag();
+function addClickListener(countryDiv, country) {
+    countryDiv.addEventListener('click', function () {
+        const url = new URL('country.html', window.location.origin);
+        url.searchParams.set('selectedCountry', country.name);
+        window.location.href = url;
     });
-    if (document.body.classList.value == "dark-mode") {
-        countryDiv.className = 'flags dark-mode-elements';
-    } else {
-        countryDiv.className = "flags";
-    }
+}
+
+function setClassNameBasedOnMode(countryDiv, mode) {
+    countryDiv.className = mode === "dark-mode" ? 'flags dark-mode-elements' : "flags";
+}
+
+function populateCountryData(countryDiv, country) {
     const formattedPopulation = country.population.toLocaleString();
     countryDiv.innerHTML = `
         <img src="${country.flags.svg}" alt="${country.name + ' flag'}">
@@ -69,7 +76,6 @@ function createCountryDiv(country) {
             <span>Capital:<p> ${country.capital} </p></span>
         </div>
     `;
-    return countryDiv;
 }
 
 
@@ -214,22 +220,22 @@ function toggleDarkMode() {
     navigationBar[0].classList.toggle("dark-nav-bar");
     const magIcon = document.getElementsByClassName("search-icon")
     magIcon[0].classList.toggle("search-icon-dark")
-    
-        for (const element of flagsElements) {
-            element.classList.toggle('dark-mode-elements');
+
+    for (const element of flagsElements) {
+        element.classList.toggle('dark-mode-elements');
 
     }
 
     toggleIcons();
 }
 
-function toggleIcons(){
+function toggleIcons() {
     const toggleLight = document.querySelector(".toggle-light-mode");
     const toggleDark = document.querySelector(".toggle-dark-mode");
 
     const stylesDark = window.getComputedStyle(toggleDark);
     const stylesLight = window.getComputedStyle(toggleLight);
-    
+
     if (stylesDark.display == "flex") {
         toggleDark.style.display = "none";
         toggleLight.style.display = "flex";
@@ -237,7 +243,7 @@ function toggleIcons(){
         toggleDark.style.display = "flex";
         toggleLight.style.display = "none";
     }
-    
+
 }
 
 
